@@ -1,13 +1,13 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   entry: {
-    main: path.resolve(__dirname, "./js/dashboard_main.js"),
+    main: path.resolve(__dirname, './js/dashboard_main.js'),
   },
   output: {
-    path: path.resolve(__dirname, "public"),
-    filename: "bundle.js",
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
   },
   performance: {
     hints: false,
@@ -18,7 +18,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ["style-loader", "css-loader"]
       },
       {
         test: /\.(gif|png|jp?g|svg)$/i,
@@ -29,10 +29,10 @@ module.exports = {
             options: {
               bypassOnDebug: true,
               disable: true,
-            },
-          },
-        ],
-      },
-    ],
-  },
+            }
+          }
+        ]
+      }
+    ]
+  }
 };
