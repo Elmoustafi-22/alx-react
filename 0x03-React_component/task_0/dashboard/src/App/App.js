@@ -1,14 +1,14 @@
 import React from "react";
-import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
-import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
+import Login from "../Login/Login";
+import CourseList from "../CourseList/CourseList";
+import Notifications from "../Notifications/Notifications";
 import "./App.css";
 import PropTypes from "prop-types";
-import CourseList from "../CourseList/CourseList";
 import { getLatestNotification } from "../utils/utils";
 
-class App extends React.Component{
+class App extends React.Component {
   listCourses = [
     { id: 1, name: "ES6", credit: 60 },
     { id: 2, name: "Webpack", credit: 20 },
@@ -21,20 +21,24 @@ class App extends React.Component{
     { id: 3, type: "urgent", html: getLatestNotification() },
   ];
 
-render() {
-  return (
-    <React.Fragment>
-      <div className="heading-section">
-        <Notifications listNotifications={this.listNotifications} />
+  render() {
+    return (
+      <React.Fragment>
         <div className="App">
-          <Header />
-          {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses} /> : <Login />}
+          <div className="heading-section">
+            <Notifications listNotifications={this.listNotifications} />
+            <Header />
+          </div>
+          {this.props.isLoggedIn ? (
+            <CourseList listCourses={this.listCourses} />
+          ) : (
+            <Login />
+          )}
           <Footer />
         </div>
-      </div>
-    </React.Fragment>
-  );
-}
+      </React.Fragment>
+    );
+  }
 }
 
 App.defaultProps = {
