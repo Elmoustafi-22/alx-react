@@ -4,17 +4,17 @@ import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import CourseList from "../CourseList/CourseList";
 import Notifications from "../Notifications/Notifications";
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { getLatestNotification } from "../utils/utils";
-import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
-import BodySection from "../BodySection/BodySection";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   listCourses = [
@@ -31,17 +31,17 @@ class App extends React.Component {
 
   handleKeyPress(e) {
     if (e.ctrlKey && e.key === "h") {
+      e.preventDefault();
       alert("Logging you out");
       this.props.logOut();
     }
   }
-
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress);
   }
 
   componentWillUnmount() {
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.removeEventListener("keydown", this.handleKeyPress);
   }
 
   render() {
@@ -81,13 +81,15 @@ const styles = StyleSheet.create({
     height: "100vh",
     maxWidth: "100vw",
     position: "relative",
-    fontFamily:"Arial, Helvetica, sans-serif"
-  }
-})
+    fontFamily: "Arial, Helvetica, sans-serif",
+  },
+});
 
 App.defaultProps = {
   isLoggedIn: false,
-  logOut: () => {},
+  logOut: () => {
+    return;
+  },
 };
 
 App.propTypes = {
