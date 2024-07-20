@@ -5,14 +5,14 @@ import Login from "../Login/Login";
 import CourseList from "../CourseList/CourseList";
 import Notifications from "../Notifications/Notifications";
 import "./App.css";
-import PropTypes, { func } from "prop-types";
+import PropTypes from "prop-types";
 import { getLatestNotification } from "../utils/utils";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   listCourses = [
@@ -33,13 +33,12 @@ class App extends React.Component {
       this.props.logOut();
     }
   }
-
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress);
   }
 
   componentWillUnmount() {
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.removeEventListener("keydown", this.handleKeyPress);
   }
 
   render() {
@@ -50,11 +49,7 @@ class App extends React.Component {
             <Notifications listNotifications={this.listNotifications} />
             <Header />
           </div>
-          {this.props.isLoggedIn ? (
-            <CourseList listCourses={this.listCourses} />
-          ) : (
-            <Login />
-          )}
+          {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses} /> : <Login />}
           <Footer />
         </div>
       </React.Fragment>
@@ -64,7 +59,9 @@ class App extends React.Component {
 
 App.defaultProps = {
   isLoggedIn: false,
-  logOut: () => {},
+  logOut: () => {
+    return;
+  },
 };
 
 App.propTypes = {

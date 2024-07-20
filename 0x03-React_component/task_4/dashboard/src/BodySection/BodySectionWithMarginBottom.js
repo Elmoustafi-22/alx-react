@@ -6,11 +6,9 @@ import "./BodySectionWithMarginBottom.css";
 class BodySectionWithMarginBottom extends Component {
   render() {
     return (
-      <>
-        <div className="BodySectionWithMargin">
-          <BodySection {...this.props} />
-        </div>
-      </>
+      <div className="bodySectionWithMargin">
+        <BodySection {...this.props} />
+      </div>
     );
   }
 }
