@@ -13,14 +13,15 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg|svg)/i,
-        type: "asset/resource",
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        // type: 'asset/resource',
         use: [
+          "file-loader",
           {
             loader: "image-webpack-loader",
             options: {
-              bypassOnDebug: true,
-              disable: true,
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
             },
           },
         ],
@@ -42,6 +43,7 @@ module.exports = {
     hot: true,
     port: 8564,
   },
+  devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       name: "index.html",
@@ -49,5 +51,4 @@ module.exports = {
       template: "./dist/index.html",
     }),
   ],
-  devtool: "inline-source-map",
 };

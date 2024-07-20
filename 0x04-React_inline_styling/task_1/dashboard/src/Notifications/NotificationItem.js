@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-class NotificationItem extends React.Component {
-  render(){
-    const { type, value, html, markAsRead, id} = this.props;
+class NotificationItem extends React.PureComponent {
+  render() {
+    const { type, value, html, markAsRead, id } = this.props;
     return (
       <>
         {type && value ? (
           <li onClick={() => markAsRead(id)} data-notification-type={type}>
             {value}
           </li>
-        ): null}
-        {html ? <li onClick={() => markAsRead(id)} data-urgent dangerouslySetInnerHTML={{__html: html}}></li> : null}
+        ) : null}
+        {html ? <li onClick={() => markAsRead(id)} data-urgent dangerouslySetInnerHTML={{ __html: html }}></li> : null}
       </>
     );
   }
@@ -24,7 +24,7 @@ NotificationItem.propTypes = {
     html: PropTypes.string,
   }),
   markAsRead: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
 };
 
 NotificationItem.defaultProps = {
@@ -32,6 +32,7 @@ NotificationItem.defaultProps = {
   markAsRead: () => {
     console.log("empty func");
   },
+  id: 0,
 };
 
 export default NotificationItem;
