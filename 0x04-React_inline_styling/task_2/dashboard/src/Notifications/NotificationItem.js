@@ -1,48 +1,65 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { StyleSheet, css } from "aphrodite";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 
 class NotificationItem extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
   render() {
-    const { type, value, html, markAsRead, id } = this.props;
-    return (
-      <>
-        {type && value ? (
-          <li className={type === "default" ? css(styles.default) : css(styles.urgent)} onClick={() => markAsRead(id)} data-notification-type={type}>
+    const { type, html, value, markAsRead, id } = this.props;
+    const color = css(type === 'urgent' ? styles.urgent : styles.default);
+    let li;
+
+    value
+      ? (li = (
+          <li
+            className={color}
+            data-notification-type={type}
+            onClick={() => markAsRead(id)}
+          >
             {value}
           </li>
-        ) : null}
-        {html ? <li onClick={() => markAsRead(id)} data-urgent className={css(styles.urgent)} dangerouslySetInnerHTML={{ __html: html }}></li> : null}
-      </>
-    );
+        ))
+      : (li = (
+          <li
+            className={color}
+            data-notification-type={type}
+            dangerouslySetInnerHTML={html}
+            onClick={() => markAsRead(id)}
+          ></li>
+        ));
+
+    return li;
   }
 }
 
-const styles = StyleSheet.create({
-  default: {
-    color: "blue",
-  },
-  urgent: {
-    color: "red",
-  },
-});
+NotificationItem.defaultProps = {
+  type: 'default',
+  html: {},
+  value: '',
+  markAsRead: () => {},
+  id: NaN,
+};
 
 NotificationItem.propTypes = {
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  __html: PropTypes.shape({
-    html: PropTypes.string,
+  type: PropTypes.string,
+  html: PropTypes.shape({
+    __html: PropTypes.string,
   }),
+  value: PropTypes.string,
   markAsRead: PropTypes.func,
   id: PropTypes.number,
 };
 
-NotificationItem.defaultProps = {
-  type: "default",
-  markAsRead: () => {
-    console.log("empty func");
+const styles = StyleSheet.create({
+  default: {
+    color: 'blue',
   },
-  id: 0,
-};
+
+  urgent: {
+    color: 'red',
+  },
+});
 
 export default NotificationItem;
