@@ -21,6 +21,6 @@ export default function uiReducer(state = defaultState, action) {
             return { ...state, isUserLoggedIn: false };
         
         case LOGOUT:
-            return state;
+            return { ...state, isUserLoggedIn: false };
     }
 }
