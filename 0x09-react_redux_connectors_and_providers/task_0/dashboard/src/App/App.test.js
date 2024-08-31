@@ -1,8 +1,5 @@
-/**
- * @jest-environment jsdom
- */
 import React from "react";
-import App from "./App";
+import App, {mapStateToProps} from "./App";
 import Login from "../Login/Login";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -11,6 +8,9 @@ import CourseList from "../CourseList/CourseList";
 import { shallow, mount } from "enzyme";
 import { StyleSheetTestUtils } from "aphrodite";
 import { AppContext, user, logOut } from "./AppContext";
+import { fromJS } from "immutable";
+import { createStore } from "redux"
+import uiReducer, { defaultState } from "../reducers/uiReducer"
 
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -166,4 +166,18 @@ describe("markNotificationAsRead works as intended", () => {
 
     wrapper.unmount();
   });
+});
+
+const store = createStore(uiReducer, defaultState);
+
+describe("App works as intended", () => {
+  it("mapStateToProps returns the right object from user Login", () => {
+    let state = fromJS({
+      isUserLoggedIn: true,
+    });
+
+    const result = mapStateToProps(state);
+
+    expect(result).toEqual({ isLoggedIn: true })
+  })
 });
